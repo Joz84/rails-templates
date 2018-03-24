@@ -138,7 +138,8 @@ after_bundle do
   # Generators: db + simple form + pages controller
   ########################################
 
-  environment 'config.webpacker.check_yarn_integrity = false', env: 'development'
+  gsub_file('config/environments/development.rb', /config\.webpacker\.check_yarn_integrity/, 'config.webpacker.check_yarn_integrity = false')
+
 
 
   rails_command 'db:drop db:create db:migrate'
