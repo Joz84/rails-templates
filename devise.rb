@@ -138,7 +138,7 @@ after_bundle do
   # Generators: db + simple form + pages controller
   ########################################
 
-  gsub_file('config/environments/development.rb', /config\.webpacker\.check_yarn_integrity/, 'config.webpacker.check_yarn_integrity = false')
+  gsub_file('config/environments/development.rb', /config\.webpacker\.check_yarn_integrity = true/, 'config.webpacker.check_yarn_integrity = false')
 
 
 
