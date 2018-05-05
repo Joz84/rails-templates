@@ -59,6 +59,7 @@ run 'rm -rf vendor'
 run 'curl -L https://github.com/lewagon/stylesheets/archive/master.zip > stylesheets.zip'
 run 'unzip stylesheets.zip -d app/assets && rm stylesheets.zip && mv app/assets/rails-stylesheets-master app/assets/stylesheets'
 
+run 'rm -f app/assets/stylesheets/components/_navbar.scss'
 run 'rm app/assets/javascripts/application.js'
 file 'app/assets/javascripts/application.js', <<-JS
 //= require rails-ujs
@@ -84,7 +85,7 @@ file 'app/views/layouts/application.html.erb', <<-HTML
     <title>TODO</title>
     <%= favicon_link_tag 'logo.png' %>
     <meta name="description" content="description">
-    <meta name="image" content="favicon.png">
+    <meta name="image" content="logo.png">
 
     <%= csrf_meta_tags %>
     <%= action_cable_meta_tag %>
@@ -118,6 +119,8 @@ HTML
 
 # run navbar
 # run logo
+# verifier les varuables bootstrap
+
 
 # README
 ########################################
