@@ -216,5 +216,5 @@ RUBY
   ########################################
   git :init
   git add: '.'
-  git commit: "-m 'Initial commit with MihiVai template"
+  git commit: "-m 'Initial commit with MihiVai template'"
 end
