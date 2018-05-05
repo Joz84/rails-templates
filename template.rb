@@ -61,8 +61,8 @@ run 'curl -L https://github.com/lewagon/stylesheets/archive/master.zip > stylesh
 run 'unzip stylesheets.zip -d app/assets && rm stylesheets.zip && mv app/assets/rails-stylesheets-master app/assets/stylesheets'
 
 run 'grep -v px app/assets/stylesheets/config/_bootstrap_variables.scss > tmp.txt && mv -f tmp.txt app/assets/stylesheets/config/_bootstrap_variables.scss'
-run 'awk "!/bootstrap-sprockets/" app/assets/stylesheets/application.scss > tmp.txt && mv -f tmp.txt app/assets/stylesheets/application.scss'
-run 'awk "!/navbar/" app/assets/stylesheets/components/_index.scss > tmp.txt && mv -f tmp.txt app/assets/stylesheets/components/_index.scss'
+run "awk '!/bootstrap-sprockets/' app/assets/stylesheets/application.scss > tmp.txt && mv -f tmp.txt app/assets/stylesheets/application.scss"
+run "awk '!/navbar/' app/assets/stylesheets/components/_index.scss > tmp.txt && mv -f tmp.txt app/assets/stylesheets/components/_index.scss"
 run 'rm -f app/assets/stylesheets/components/_navbar.scss'
 run 'rm app/assets/javascripts/application.js'
 file 'app/assets/javascripts/application.js', <<-JS
