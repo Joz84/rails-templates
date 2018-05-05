@@ -16,6 +16,7 @@ gem 'puma'
 gem 'rails', '#{Rails.version}'
 gem 'redis'
 
+gem 'jquery-rails'
 gem 'autoprefixer-rails'
 gem 'bootstrap', '~> 4.1.1'
 gem 'font-awesome-sass', '~> 4.7'
@@ -59,6 +60,9 @@ run 'rm -rf vendor'
 run 'curl -L https://github.com/lewagon/stylesheets/archive/master.zip > stylesheets.zip'
 run 'unzip stylesheets.zip -d app/assets && rm stylesheets.zip && mv app/assets/rails-stylesheets-master app/assets/stylesheets'
 
+run 'grep -v px app/assets/stylesheets/config/_bootstrap_variables.scss > tmp.txt && mv -f tmp.txt app/assets/stylesheets/config/_bootstrap_variables.scss'
+run 'awk "!/bootstrap-sprockets/" app/assets/stylesheets/application.scss > tmp.txt && mv -f tmp.txt app/assets/stylesheets/application.scss > '
+run 'awk "!/navbar/" app/assets/stylesheets/components/_index.scss > tmp.txt && mv -f tmp.txt app/assets/stylesheets/components/_index.scss'
 run 'rm -f app/assets/stylesheets/components/_navbar.scss'
 run 'rm app/assets/javascripts/application.js'
 file 'app/assets/javascripts/application.js', <<-JS
@@ -97,7 +101,6 @@ file 'app/views/layouts/application.html.erb', <<-HTML
     <%= render 'shared/flashes' %>
     <%= yield %>
     <%= javascript_include_tag 'application' %>
-    <%= javascript_pack_tag 'application' %>
   </body>
 </html>
 HTML
@@ -117,9 +120,18 @@ file 'app/views/shared/_flashes.html.erb', <<-HTML
 <% end %>
 HTML
 
-# run navbar
-# run logo
-# verifier les varuables bootstrap
+file 'app/views/shared/_navbar.html.erb', <<-HTML
+<div class="d-flex justify-content-between align-items-center px-4 py-2 border-bottom">
+  <%= link_to (image_tag "logo.png", height: 50), root_path %>
+  <% if user_signed_in? %>
+    <%= link_to t(".sign_out", default: "Log out"), destroy_user_session_path, method: :delete %>
+  <% else %>
+    <%= link_to t(".sign_in", default: "Login"), new_user_session_path %>
+  <% end %>
+</div>
+HTML
+
+run 'curl -L https://raw.githubusercontent.com/Joz84/rails-templates/master/logo.png > app/assets/images/logo.png'
 
 
 # README
