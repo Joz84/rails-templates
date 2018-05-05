@@ -8,6 +8,6 @@ Get a minimal rails 5.1+ app ready to be deployed on Heroku with Bootstrap, Simp
 ```bash
 rails new \
   --database postgresql \
-  -m https://raw.githubusercontent.com/Joz84/rails-templates/master/devise.rb \
+  -m https://raw.githubusercontent.com/Joz84/rails-templates/master/template.rb \
   CHANGE_THIS_TO_YOUR_RAILS_APP_NAME
 ```
