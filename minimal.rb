@@ -11,7 +11,7 @@ ruby '#{RUBY_VERSION}'
 gem 'devise'
 gem 'figaro'
 gem 'jbuilder', '~> 2.0'
-gem 'pg', '~> 0.21'
+gem 'pg' #, '~> 0.21'
 gem 'puma'
 gem 'rails', '#{Rails.version}'
 gem 'redis'
@@ -208,7 +208,7 @@ RUBY
   run 'rm app/controllers/pages_controller.rb'
   file 'app/controllers/pages_controller.rb', <<-RUBY
 class PagesController < ApplicationController
-  skip_before_action :authenticate_user!, only: [:home]
+  # skip_before_action :authenticate_user!, only: [:home]
 
   def home
   end
