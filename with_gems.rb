@@ -2,6 +2,7 @@ run 'pgrep spring | xargs kill -9'
 
 # GEMFILE
 ########################################
+run 'gem update rails'
 run 'rm Gemfile'
 file 'Gemfile', <<-RUBY
 source 'https://rubygems.org'
