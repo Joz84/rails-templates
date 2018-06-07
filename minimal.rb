@@ -23,6 +23,8 @@ gem 'font-awesome-sass', '~> 4.7'
 gem 'sass-rails'
 gem 'simple_form'
 gem 'uglifier'
+gem 'cloudinary', require: false
+gem 'activestorage-cloudinary-service'
 
 group :development do
   gem 'web-console', '>= 3.3.0'
@@ -200,6 +202,7 @@ RUBY
 
   # migrate + devise views
   ########################################
+  rails_command 'active_storage:install'
   rails_command 'db:migrate'
   generate('devise:views')
 
@@ -207,24 +210,42 @@ RUBY
   ########################################
   run 'rm app/controllers/pages_controller.rb'
   file 'app/controllers/pages_controller.rb', <<-RUBY
-class PagesController < ApplicationController
-  # skip_before_action :authenticate_user!, only: [:home]
+    class PagesController < ApplicationController
+      # skip_before_action :authenticate_user!, only: [:home]
 
-  def home
-  end
-end
-RUBY
+      def home
+      end
+    end
+  RUBY
 
   # Environments
   ########################################
   environment 'config.action_mailer.default_url_options = { host: "http://localhost:3000" }', env: 'development'
   environment 'config.action_mailer.default_url_options = { host: "http://TODO_PUT_YOUR_DOMAIN_HERE" }', env: 'production'
-
+  environment 'config.active_storage.service = :cloudinary', env: 'production'
 
   # Figaro
   ########################################
   run 'bundle binstubs figaro'
   run 'figaro install'
+
+  # application.yml
+  ########################################
+  file 'config/application.yml', <<-YAML
+    CLOUDINARY_CLOUD_NAME: ""
+    CLOUDINARY_API_KEY: ""
+    CLOUDINARY_API_SECRET: ""
+  YAML
+
+  # storage.yml
+  ########################################
+  file 'config/storage.yml', <<-YAML
+    cloudinary:
+      service: Cloudinary
+      cloud_name: <%= ENV['CLOUDINARY_CLOUD_NAME'] %>
+      api_key:    <%= ENV['CLOUDINARY_API_KEY'] %>
+      api_secret: <%= ENV['CLOUDINARY_API_SECRET'] %>
+  YAML
 
   # Git
   ########################################
