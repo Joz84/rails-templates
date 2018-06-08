@@ -217,7 +217,7 @@ class PagesController < ApplicationController
   def home
   end
 end
-  RUBY
+RUBY
 
   # Environments
   ########################################
@@ -236,7 +236,7 @@ end
 CLOUDINARY_CLOUD_NAME: ""
 CLOUDINARY_API_KEY: ""
 CLOUDINARY_API_SECRET: ""
-  YAML
+YAML
 
   # storage.yml
   ########################################
@@ -246,7 +246,7 @@ CLOUDINARY_API_SECRET: ""
       cloud_name: <%= ENV['CLOUDINARY_CLOUD_NAME'] %>
       api_key:    <%= ENV['CLOUDINARY_API_KEY'] %>
       api_secret: <%= ENV['CLOUDINARY_API_SECRET'] %>
-    "
+    \n\n"
   end
 
   # Git
