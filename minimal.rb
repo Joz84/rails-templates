@@ -78,6 +78,7 @@ JS
 # Dev environment
 ########################################
 gsub_file('config/environments/development.rb', /config\.assets\.debug.*/, 'config.assets.debug = false')
+gsub_file('config/environments/production.rb', /config\.active_storage\.service.*/, 'config.active_storage.service = :cloudinary')
 
 # Layout
 ########################################
@@ -210,19 +211,18 @@ RUBY
   ########################################
   run 'rm app/controllers/pages_controller.rb'
   file 'app/controllers/pages_controller.rb', <<-RUBY
-    class PagesController < ApplicationController
-      # skip_before_action :authenticate_user!, only: [:home]
+class PagesController < ApplicationController
+  # skip_before_action :authenticate_user!, only: [:home]
 
-      def home
-      end
-    end
+  def home
+  end
+end
   RUBY
 
   # Environments
   ########################################
   environment 'config.action_mailer.default_url_options = { host: "http://localhost:3000" }', env: 'development'
   environment 'config.action_mailer.default_url_options = { host: "http://TODO_PUT_YOUR_DOMAIN_HERE" }', env: 'production'
-  environment 'config.active_storage.service = :cloudinary', env: 'production'
 
   # Figaro
   ########################################
@@ -231,21 +231,23 @@ RUBY
 
   # application.yml
   ########################################
+  run 'rm config/application.yml'
   file 'config/application.yml', <<-YAML
-    CLOUDINARY_CLOUD_NAME: ""
-    CLOUDINARY_API_KEY: ""
-    CLOUDINARY_API_SECRET: ""
+CLOUDINARY_CLOUD_NAME: ""
+CLOUDINARY_API_KEY: ""
+CLOUDINARY_API_SECRET: ""
   YAML
 
   # storage.yml
   ########################################
-  file 'config/storage.yml', <<-YAML
-    cloudinary:
+  inject_into_file 'config/storage.yml', before: "test:" do
+    "cloudinary:
       service: Cloudinary
       cloud_name: <%= ENV['CLOUDINARY_CLOUD_NAME'] %>
       api_key:    <%= ENV['CLOUDINARY_API_KEY'] %>
       api_secret: <%= ENV['CLOUDINARY_API_SECRET'] %>
-  YAML
+    "
+  end
 
   # Git
   ########################################
