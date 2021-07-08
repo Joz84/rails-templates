@@ -5,6 +5,15 @@ using [Rails Templates](http://guides.rubyonrails.org/rails_application_template
 
 Get a minimal rails 5.2+ app ready to be deployed on Heroku with Bootstrap, Simple form, debugging gems and Devise install with a generated `User` model.
 
+## Installation
+
+- Update your Rails gem
+```bash
+gem update rails
+```
+
+- Create your Rails app
+
 ```bash
 rails new \
   --database postgresql \
